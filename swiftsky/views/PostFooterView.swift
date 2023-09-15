@@ -244,9 +244,11 @@ struct PostFooterView: View {
         } label: {
           Text("\(Image(systemName: "heart")) ")
         }
+#if os(macOS)
         .disabled(likedisabled)
         .buttonStyle(.plain)
         .frame(alignment: .leading)
+#endif
         Text("\(post.likeCount)")
           .underline(likesunderline)
           .hoverHand {

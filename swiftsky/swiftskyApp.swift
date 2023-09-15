@@ -26,7 +26,9 @@ struct swiftskyApp: App {
       .environmentObject(pushnotifications)
       .environmentObject(preferences)
     }
+      #if os(macOS)
     .defaultSize(width: 1100, height: 650)
+      #endif
     .commands {
       CommandMenu("Account") {
         if let profile = globalviewmodel.profile {
@@ -48,8 +50,10 @@ struct swiftskyApp: App {
         pushnotifications.cancelRefreshTask()
       }
     }
+    #if os(macOS)
     Settings {
       SettingsView()
     }
+    #endif
   }
 }

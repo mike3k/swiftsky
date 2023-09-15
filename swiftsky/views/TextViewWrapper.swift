@@ -4,7 +4,7 @@
 //
 
 import SwiftUI
-
+#if os(macOS)
 class NSTextViewSubclass: NSTextView{
   var onPaste: (() -> Void)? = nil
   func setPasteAction(action: (() -> Void)?) {
@@ -138,3 +138,5 @@ struct TextViewWrapper: NSViewRepresentable {
     }
   }
 }
+#else
+#endif

@@ -78,7 +78,7 @@ private struct FollowersRowView: View {
         }
         .disabled(followingdisabled)
         .buttonStyle(.borderedProminent)
-        .tint(!following ? .accentColor : Color(.controlColor))
+        .tint(!following ? .accentColor : Color(.gray))
         .padding(.trailing, 2)
         .frame(maxHeight: .infinity, alignment: .center)
       }

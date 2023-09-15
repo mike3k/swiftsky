@@ -79,6 +79,7 @@ struct PostView: View {
 
           Spacer()
           Group {
+              #if os(macOS)
             MenuButton {
               var items: [MenuItem] = []
               items.append(
@@ -100,6 +101,7 @@ struct PostView: View {
             .frame(width: 30, height: 30)
             .contentShape(Rectangle())
             .hoverHand()
+              #endif
           }
           .frame(height: 0)
         }
@@ -109,7 +111,7 @@ struct PostView: View {
             Button {
               path.append(.profile(reply))
             } label: {
-              Text("@\(reply)").foregroundColor(Color(.linkColor))
+              Text("@\(reply)").foregroundColor(Color(.link))
                 .underline(underlinereply)
                 .hoverHand {
                   underlinereply = $0

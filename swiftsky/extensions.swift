@@ -11,12 +11,14 @@ extension View {
   func hoverHand(callback: ((Bool) -> ())? = nil) -> some View {
     self
       .onHover {
+          #if os(macOS)
         if $0 {
           NSCursor.pointingHand.push()
         }
         else {
           NSCursor.pop()
         }
+          #endif
         callback?($0)
       }
   }
@@ -77,7 +79,7 @@ class NSAction<T>: NSObject {
     action(sender as! T)
   }
 }
-
+#if os(macOS)
 extension NSButton {
   func setAction(_ closure: @escaping (NSButton) -> Void) {
     let action = NSAction<NSButton>(closure)
@@ -96,6 +98,7 @@ extension NSMenuItem {
       self, "\(self.hashValue)", action, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
   }
 }
+#endif
 
 extension Encodable {
   var dictionary: [String: Any]? {

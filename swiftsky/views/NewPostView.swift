@@ -84,20 +84,37 @@ struct NewPostView: View {
         AvatarView(url: globalmodel.profile?.avatar, size: 50)
         let placeholder = post != nil && !isquote ? "Reply to @\(post!.author.handle)" : "What's up?"
         VStack(alignment: .leading) {
+            #if os(macOS)
           TextViewWrapper(text: $text, placeholder: placeholder) {
             if images.count >= 4 {
               return
             }
+              #if os(macOS)
             let imgData = NSPasteboard.general.data(forType: .png)
+              #else
+              let imgData = UIPasteboard.general.data(forType: .png)
+
+              #endif
             if let imgData {
               DispatchQueue.main.async {
+                  #if os(macOS)
                 if let image = NSImage(data: imgData) {
                   images.append(.init(image: Image(nsImage: image), data: imgData))
                 }
+                 #else
+                  if let image = UIImage(data: imgData) {
+                    images.append(.init(image: Image(nsImage: image), data: imgData))
+                  }
+
+                  #endif
               }
             }
           }
           .frame(height: 200)
+
+            #else
+            Text("")
+            #endif
           ScrollView(.horizontal) {
             HStack {
               ForEach(Array(images.enumerated()), id: \.element.id) { index, image in
@@ -155,9 +172,16 @@ struct NewPostView: View {
           }
           guard url.startAccessingSecurityScopedResource() else {continue}
           if let data = try? Data(contentsOf: url) {
+              #if os(macOS)
             if let image = NSImage(data: data) {
               images.append(.init(image: Image(nsImage: image), data: data))
             }
+              #else
+              if let image = UIImage(data: data) {
+                images.append(.init(image: Image(uiImage: image), data: data))
+              }
+
+              #endif
           }
           url.stopAccessingSecurityScopedResource()
         }

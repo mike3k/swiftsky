@@ -6,6 +6,7 @@
 import Foundation
 import SwiftUI
 
+#if os(macOS)
 class MenuItem: NSMenuItem {
   init(title: String, action: @escaping () -> Void) {
     super.init(title: title, action: nil, keyEquivalent: "")
@@ -44,3 +45,5 @@ struct MenuButton: NSViewRepresentable {
 
   }
 }
+#endif
+

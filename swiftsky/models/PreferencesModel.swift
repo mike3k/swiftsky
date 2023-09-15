@@ -37,9 +37,11 @@ class SavedFeedsModel {
     let newFeedModels = NSCache<NSString, CustomFeedModel>()
     var neededFeedUris: [String] = []
     for feedUri in PreferencesModel.shared.savedFeeds {
+        #if os(macOS)
       if !newFeedModels.doesContain(feedUri) {
         neededFeedUris.append(feedUri)
       }
+        #endif
     }
     for i in stride(from: 0, to: neededFeedUris.count, by: 25) {
       let res = try await FeedGetFeedGenerators(feeds: Array(neededFeedUris[i..<min(i + 25, neededFeedUris.count)]))

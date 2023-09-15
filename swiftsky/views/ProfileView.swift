@@ -170,7 +170,7 @@ struct ProfileView: View {
       isfollowing ? unfollow() : follow()
     }
     .buttonStyle(.borderedProminent)
-    .tint(isfollowing ? Color(.controlColor) : Color.accentColor)
+    .tint(isfollowing ? Color(.gray) : Color.accentColor)
     .disabled(disablefollowbutton)
   }
   var unblockbutton: some View {

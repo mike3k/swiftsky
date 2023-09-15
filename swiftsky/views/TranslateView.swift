@@ -19,10 +19,14 @@ struct TranslateView: View {
         } label : {
           Text(viewmodel.showtranslated ? "Translated to \(GlobalViewModel.shared.systemLanguage) by Google Translate" : "Translate to \(GlobalViewModel.shared.systemLanguage)")
             .underline(underline)
+            #if os(macOS)
             .foregroundColor(Color(NSColor.linkColor))
             .hoverHand {
               underline = $0
             }
+            #else
+            .foregroundColor(Color(UIColor.link))
+            #endif
         }
         .disabled(viewmodel.translatestatus == 1)
         .buttonStyle(.plain)
