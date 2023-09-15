@@ -111,7 +111,7 @@ struct PostView: View {
             Button {
               path.append(.profile(reply))
             } label: {
-              Text("@\(reply)").foregroundColor(Color(.link))
+                Text("@\(reply)").foregroundColor(Color(.link))
                 .underline(underlinereply)
                 .hoverHand {
                   underlinereply = $0

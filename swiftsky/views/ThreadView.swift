@@ -55,7 +55,7 @@ struct ThreadView: View {
           if let viewpost = threadviewpost?.post {
             parentPosts
               .background(alignment: .topLeading) {
-                Color(UIColor.quaternaryLabel)
+                Color(.quaternaryLabel)
                   .frame(width: 4)
                   .padding(.leading, 35)
               }
@@ -67,7 +67,7 @@ struct ThreadView: View {
             .padding(.top, parents.isEmpty ? 0 : 5)
             .background(alignment: .topLeading) {
               if !parents.isEmpty {
-                Color(UIColor.quaternaryLabel)
+                Color(.quaternaryLabel)
                   .frame(width: 4, height: 15)
                   .padding(.leading, 35)
               }

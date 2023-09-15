@@ -47,6 +47,23 @@ struct LoginView: View {
       } header: {
         error.isEmpty ? Text("Please sign in to continue.") : Text(error).foregroundColor(.red)
       }
+        #if os(iOS)
+        HStack {
+            Button("Sign in") {
+              if password.count == 19 {
+                signin()
+              }
+              else {
+                self.error = "Signing in with main password is not allowed"
+              }
+            }
+            .disabled(isButtonDisabled || (handle.isEmpty || password.isEmpty))
+            Spacer()
+            Button("Cancel", role: .cancel) {
+              exit(0)
+            }
+        }
+        #endif
     }
     .formStyle(.grouped)
     .navigationTitle("Sign in")
@@ -68,6 +85,5 @@ struct LoginView: View {
         }
       }
     }
-
   }
 }
