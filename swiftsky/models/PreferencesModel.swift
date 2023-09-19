@@ -41,7 +41,12 @@ class SavedFeedsModel {
       if !newFeedModels.doesContain(feedUri) {
         neededFeedUris.append(feedUri)
       }
-        #endif
+        #else
+        if newFeedModels.object(forKey: feedUri as NSString)  == nil {
+          neededFeedUris.append(feedUri)
+        }
+
+#endif
     }
     for i in stride(from: 0, to: neededFeedUris.count, by: 25) {
       let res = try await FeedGetFeedGenerators(feeds: Array(neededFeedUris[i..<min(i + 25, neededFeedUris.count)]))

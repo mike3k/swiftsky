@@ -54,10 +54,16 @@ struct ThreadView: View {
         Group {
           if let viewpost = threadviewpost?.post {
             parentPosts
-              .background(alignment: .topLeading) {
-                Color(.quaternaryLabel)
-                  .frame(width: 4)
-                  .padding(.leading, 35)
+                  .background(alignment: .topLeading) {
+                      #if os(macOS)
+                      Color(NSColor.quaternaryLabelColor)
+                      .frame(width: 4)
+                      .padding(.leading, 35)
+                      #else
+                      Color(UIColor.quaternaryLabel)
+                      .frame(width: 4)
+                      .padding(.leading, 35)
+                      #endif
               }
             ThreadPostview(
               post: viewpost, reply: threadviewpost?.parent?.post?.author.handle, path: $path,
@@ -67,9 +73,15 @@ struct ThreadView: View {
             .padding(.top, parents.isEmpty ? 0 : 5)
             .background(alignment: .topLeading) {
               if !parents.isEmpty {
-                Color(.quaternaryLabel)
+                  #if os(macOS)
+                Color(NSColor.quaternaryLabelColor)
                   .frame(width: 4, height: 15)
                   .padding(.leading, 35)
+                  #else
+                  Color(UIColor.quaternaryLabel)
+                    .frame(width: 4, height: 15)
+                    .padding(.leading, 35)
+                  #endif
               }
             }
             PostFooterView(leadingpadding: 15, post: viewpost, path: $path)

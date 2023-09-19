@@ -61,12 +61,10 @@ struct ThreadPostview: View {
                 .underline(usernamehover)
             }
             .buttonStyle(.plain)
-              #if os(macOS)
             .hoverHand {usernamehover = $0}
             .tooltip {
               ProfilePreview(did: post.author.did, path: $path)
             }
-              #endif
             Button {
               path.append(.profile(post.author.did))
             } label: {
@@ -76,8 +74,8 @@ struct ThreadPostview: View {
                 .underline(displaynamehover)
             }
             .buttonStyle(.plain)
-              #if os(macOS)
             .onHover { ishovered in
+                #if os(macOS)
               if ishovered {
                 displaynamehover = true
                 NSCursor.pointingHand.push()
@@ -85,14 +83,13 @@ struct ThreadPostview: View {
                 displaynamehover = false
                 NSCursor.pointingHand.pop()
               }
+                #endif
             }
-              #endif
           }
 
           Spacer()
 
           Group {
-#if os(macOS)
             MenuButton {
               var items: [MenuItem] = []
               items.append(
@@ -113,8 +110,6 @@ struct ThreadPostview: View {
             }
             .frame(width: 30, height: 30)
             .contentShape(Rectangle())
-#else
-#endif
               #if os(macOS)
             .onHover { ishovered in
               if ishovered {
@@ -123,7 +118,7 @@ struct ThreadPostview: View {
                 NSCursor.pointingHand.pop()
               }
             }
-              #endif
+#endif
           }
         }
       }

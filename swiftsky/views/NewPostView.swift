@@ -89,12 +89,7 @@ struct NewPostView: View {
             if images.count >= 4 {
               return
             }
-              #if os(macOS)
             let imgData = NSPasteboard.general.data(forType: .png)
-              #else
-              let imgData = UIPasteboard.general.data(forType: .png)
-
-              #endif
             if let imgData {
               DispatchQueue.main.async {
                   #if os(macOS)
