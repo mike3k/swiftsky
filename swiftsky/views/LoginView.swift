@@ -60,13 +60,13 @@ struct LoginView: View {
             .disabled(isButtonDisabled || (handle.isEmpty || password.isEmpty))
             Spacer()
             Button("Cancel", role: .cancel) {
-              exit(0)
             }
         }
         #endif
     }
     .formStyle(.grouped)
     .navigationTitle("Sign in")
+      #if os(macOS)
     .toolbar {
       ToolbarItem(placement: .confirmationAction) {
         Button("Sign in") {
@@ -85,5 +85,6 @@ struct LoginView: View {
         }
       }
     }
+      #endif
   }
 }
