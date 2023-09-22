@@ -39,28 +39,31 @@ struct Tabs: View {
   }
   var body: some View {
       TabView(selection: $selection) {
-          if let profile = self.globalviewmodel.profile {
-            ProfileView(did: profile.did, profile: profile, path: $path)
-              .frame(minWidth: 800)
-              .navigationTitle(profile.handle)
-          }
-          else {
-            EmptyView()
-          }
-        HomeView(path: $path)
-          .tabItem {
-              Label("Home", systemImage: "house")
-          }
+          HomeView(path: $path)
+            .tabItem {
+                Label("Home", systemImage: "house")
+            }
         NotificationsView(path: $path)
           .tabItem {
               Label("Notifications", systemImage: "bell.badge")
           }
-//        FeedView(model: feed, header: false, path: $path)
         DiscoverFeedsView(path: $path)
           .tabItem{
               Label("Discover", systemImage: "doc.text.magnifyingglass")
           }
-        } 
+          if let profile = self.globalviewmodel.profile {
+              ProfileView(did: profile.did, profile: profile, path: $path)
+                    .tabItem {
+                        Label("Profile", systemImage: "person")
+                    }
+            }
+            else {
+              EmptyView()
+                    .tabItem {
+                        Label("Profile", systemImage: "person")
+                    }
+            }
+        }
     .onOpenURL(perform: { url in
       let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
       let did = components?.queryItems?.first { $0.name == "did" }?.value
@@ -71,7 +74,7 @@ struct Tabs: View {
       path.append(.profile(did))
     })
     .onChange(of: selection) { _ in
-//      path.removeLast(path.count)
+      path.removeLast(path.count)
     }
     .task {
       selection = .home
